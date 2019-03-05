@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Item from "./Item";
-import Total from "./Total";
-import "./items.css";
+import TotalContainer from "./TotalContainer.js";
 
 class Items extends Component {
   constructor(props) {
@@ -18,7 +17,9 @@ class Items extends Component {
         type: "Hot Drinks",
         price: 1.5,
         amount: 0,
-        total: 0
+        total: 0,
+        details:
+          "Coffee the traditional way. A single shot of the strong, rich Signature Blend topped with the smoothest espresso crema you'll find anywhere. Served with a side of water."
       },
       {
         id: 1,
@@ -28,7 +29,9 @@ class Items extends Component {
         type: "Hot Drinks",
         price: 2,
         amount: 0,
-        total: 0
+        total: 0,
+        details:
+          "A fresh, fruity and complex flavor. This exotic medley has an enticing floral aroma with high notes of summer ripened mangoes and passion fruit."
       },
       {
         id: 2,
@@ -38,7 +41,9 @@ class Items extends Component {
         content: "Cold Beer",
         price: 3,
         amount: 0,
-        total: 0
+        total: 0,
+        details:
+          "An English style bitter with lots of Fuggle hops. A beautifully balanced beer from start to finish with loads of flavour. A rich amber colour, good balance of hops, citrusy hops and caramel on the nose."
       }
     ],
     searchResults: []
@@ -48,7 +53,6 @@ class Items extends Component {
     newAmount.items[param.id].amount += 1;
     newAmount.items[param.id].total =
       newAmount.items[param.id].amount * newAmount.items[param.id].price;
-    console.log(newAmount);
     this.setState({
       ...newAmount
     });
@@ -59,15 +63,11 @@ class Items extends Component {
       newAmount.items[param.id].amount -= 1;
       newAmount.items[param.id].total =
         newAmount.items[param.id].amount * newAmount.items[param.id].price;
-      console.log(newAmount);
       this.setState({
         ...newAmount
       });
     }
   };
-  getSum(total, num) {
-    return total + num;
-  }
   search(event) {
     let searchStr = event.target.value;
     const regexp = new RegExp(searchStr, "i");
@@ -81,12 +81,11 @@ class Items extends Component {
   }
   render() {
     let list = this.state.items;
-    {
-      this.state.searchResults.length
-        ? (list = this.state.searchResults)
-        : (list = this.state.items);
-    }
-    const totalOrder = list.reduce((a, b) => ({ total: a.total + b.total }));
+
+    this.state.searchResults.length
+      ? (list = this.state.searchResults)
+      : (list = this.state.items);
+
     return (
       <div className='row'>
         <div className='input-field container'>
@@ -98,7 +97,7 @@ class Items extends Component {
           {list.map(list => (
             <li className='collection-item col s12 m6 l3 xl3' key={list.id}>
               <Item
-                handleClick={this.increaseAmount(list)}
+                increaseAmount={this.increaseAmount(list)}
                 decreaseAmount={this.decreaseAmount(list)}
                 id={list.id}
                 src={list.src}
@@ -107,25 +106,14 @@ class Items extends Component {
                 price={list.price}
                 amount={list.amount}
                 total={list.total}
+                details={list.details}
               />
             </li>
           ))}
         </ul>
         <div className='total collection col s4 m4 l3 xl2'>
           <p className='collection-item no-padding-left text-bold'>Order: </p>
-          {list.map(list => (
-            <Total
-              key={list.title}
-              item={list.title}
-              amount={list.amount}
-              total={list.total}
-            />
-          ))}
-          {totalOrder.total ? (
-            <p className='collection-item no-padding-left border-top text-bold'>
-              Total: {totalOrder.total} KM
-            </p>
-          ) : null}
+          <TotalContainer list={list} />
         </div>
       </div>
     );
