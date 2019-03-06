@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Modal from "react-responsive-modal";
-import "./button.css";
-import "./item.css";
+import "../styles/button.css";
+import "../styles/item.css";
 
 class Item extends Component {
   state = {
@@ -45,10 +45,11 @@ class Item extends Component {
                 ) : null}
               </p>
             </div>
-            <div className='card-action'>
-              <a onClick={this.onOpenModal} className='cursor-pointer'>
-                Link
-              </a>
+            <div
+              onClick={this.onOpenModal}
+              className='card-action cursor-pointer'
+            >
+              <a className='details-link'>Details</a>
             </div>
           </div>
         </div>

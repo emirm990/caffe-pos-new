@@ -18,3 +18,12 @@
 .margin-top {
   margin-top: 40px;
 }
+.details-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+/* modal close button*/
+.styles_closeButton__20ID4 {
+  cursor: pointer;
+}

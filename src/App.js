@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ItemsContainer from "./components/ItemsContainer";
+import Items from "./components/Items";
 class App extends Component {
   render() {
-    return <ItemsContainer />;
+    return <Items />;
   }
 }
 
