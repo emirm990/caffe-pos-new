@@ -9,12 +9,21 @@ class Item extends Component {
   };
   onOpenModal = () => {
     this.setState({ open: true });
+    window.location.hash = "details";
   };
   onCloseModal = () => {
     this.setState({ open: false });
+    window.location.hash = "#";
+  };
+  hashChanged = () => {
+    console.log(window.location.hash);
+    if (window.location.hash === "#details") {
+      this.setState({ open: true });
+    } else this.setState({ open: false });
   };
   render() {
     const { open } = this.state;
+    window.onhashchange = this.hashChanged;
     return (
       <React.Fragment>
         <div className='card-container hoverable'>
