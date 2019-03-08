@@ -16,7 +16,6 @@ class Item extends Component {
     window.location.hash = "#";
   };
   hashChanged = () => {
-    console.log(window.location.hash);
     if (window.location.hash === "#details") {
       this.setState({ open: true });
     } else this.setState({ open: false });
@@ -58,7 +57,9 @@ class Item extends Component {
               onClick={this.onOpenModal}
               className='card-action cursor-pointer'
             >
-              <a className='details-link'>Details</a>
+              <a href='#details' className='details-link'>
+                Details
+              </a>
             </div>
           </div>
         </div>
